@@ -13,7 +13,7 @@ _The primary purpose of this project was to practice making API calls._
 * _Clone this repository_
 * _Navigate to the project directory and run the command "npm install"_
 * _Go to ----- and log in to your account (or create an account and log in)_
-* _Create an App on your Giphy Dashboard to obtain an API key_
+* _Obtain an API key_
 * _In the project directory, create a file called ".env"_
 * _Open the .env file and store your API key using the format "API_KEY = your-API-key-here"_
 * _Save the .env file_
