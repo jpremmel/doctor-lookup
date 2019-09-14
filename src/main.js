@@ -8,11 +8,10 @@ $(document).ready(function() {
   $("#doctor-lookup").submit(function(event) {
     event.preventDefault();
     $(".output").text("");
-    let query = $("#query").val();
+    let query = $("#query").val().split(" ").join("-");
     let doctorPromise = getDoctorInfo(query);
     doctorPromise.then(function(response) {
       const doctorInfo = JSON.parse(response);
-
       for (let i = 0; i < doctorInfo.data.length; i++) {
         let name;
         if (doctorInfo.data[i].profile.middle_name) {
@@ -23,7 +22,8 @@ $(document).ready(function() {
           let practices = [];
           for (let j = 0; j < doctorInfo.data[i].practices.length; j++) {
             let practiceName = doctorInfo.data[i].practices[j].name;
-            let practicePhone = doctorInfo.data[i].practices[j].phones[0].number;
+            let phoneArray = doctorInfo.data[i].practices[j].phones[0].number.split("");
+            let practicePhone = `(${phoneArray.splice(0, 3).join("")}) ${phoneArray.splice(0, 3).join("")}-${phoneArray.join("")} `;
             let practiceAddress;
             if (doctorInfo.data[i].practices[j].visit_address.street2) {
               practiceAddress = `<br>${doctorInfo.data[i].practices[j].visit_address.street}<br>${doctorInfo.data[i].practices[j].visit_address.street2}<br>${doctorInfo.data[i].practices[j].visit_address.city}, ${doctorInfo.data[i].practices[j].visit_address.state} ${doctorInfo.data[i].practices[j].visit_address.zip}`;
@@ -42,14 +42,12 @@ $(document).ready(function() {
             } else {
               acceptsNewPts = "No";
             }
-            practices.push(`<br><strong>${practiceName}</strong><br>Phone: ${practicePhone}<p>Address:${practiceAddress}</p>Website: ${practiceWebsite}<br>Accepting New Patients: ${acceptsNewPts}`);
+            practices.push(`<p><span class="practice">${practiceName}</span><br><span class="label">Phone:</span> ${practicePhone}<br><span class="label">Address:</span>${practiceAddress}<br><span class="label">Website:</span> ${practiceWebsite}<br><span class="label">Accepting New Patients:</span> ${acceptsNewPts}</p>`);
           }
           let practiceNames = practices.join("<br> ");
-          $(".output").append(`<div class="card"><h4><span class="label">Name: </span>${name}</h4><p>${practiceNames}</p></div>`);
+          $(".output").append(`<div class="card"><h3>${name}</h3><p>${practiceNames}</p></div>`);
       }
-
     });
-
     $(".output").show();
   });
 });
