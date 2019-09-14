@@ -1,6 +1,6 @@
-# _Doctor Lookup_
+# _Portland Doctor Lookup_
 
-#### _A page where a user can find a doctor to suit their needs, 13 Sept 2019_
+#### _A page where a user can find a doctor in Portland, Oregon to suit their needs, 13 Sept 2019_
 
 #### By _**Jacqueline Remmel**_
 
