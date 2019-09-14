@@ -12,6 +12,9 @@ $(document).ready(function() {
     let doctorPromise = getDoctorInfo(query);
     doctorPromise.then(function(response) {
       const doctorInfo = JSON.parse(response);
+      if (doctorInfo.data.length === 0) {
+        $(".output").html(`<div class="card"><h5><em>No results found. Please try a different search.</em></h5></div>`);
+      }
       for (let i = 0; i < doctorInfo.data.length; i++) {
         let name;
         if (doctorInfo.data[i].profile.middle_name) {
